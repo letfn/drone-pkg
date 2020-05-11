@@ -5,7 +5,7 @@ function main {
 
   cd "${PLUGIN_SOURCE:-.}"
 
-  pkg -t "${PLUGIN_TARGET:-node12-macos-x64,node12-linux}" "${PLUGIN_SCRIPT}"
+  pkg --out-path /tmp -t "${PLUGIN_TARGET:-node12-macos-x64,node12-linux}" "${PLUGIN_SCRIPT}"
 
   return 0
 }
