@@ -1,9 +1,7 @@
 FROM letfn/python
 
 USER root
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get install -y nodejs
-RUN find /usr -name node -ls && node --version
+RUN apt-get install -y nodejs npm
 RUN npm install npm --global
 RUN npm install pkg --global
 
