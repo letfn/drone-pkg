@@ -1,8 +1,16 @@
 FROM letfn/python
 
+USER root
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y nodejs
+RUN npm install -g pkg
+
+USER app
 COPY --chown=app:app requirements.txt /app/src/requirements.txt
 RUN . /app/venv/bin/activate && pip install --no-cache-dir -r /app/src/requirements.txt
 
-COPY service /service
+RUN cd /tmp && touch index.js && pkg -t node12-darwin,node12-linux index.js && rm -f index.js index-*
 
-ENTRYPOINT [ "/tini", "--", "/service" ]
+COPY plugin /plugin
+
+ENTRYPOINT [ "/tini", "--", "/plugin" ]
