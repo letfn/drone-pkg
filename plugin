@@ -3,9 +3,17 @@
 function main {
   set -exfu
 
-  cd "${PLUGIN_SOURCE:-.}"
+  : ${PLUGIN_SOURCE:=.}
+  : ${PLUGIN_OUTPUT_DIR:=.}
+  : ${PLUGIN_TARGET:=node12-macos-x64,node12-linux}
 
-  pkg --out-path "${PLUGIN_OUTPUT_DIR:-.}" -t "${PLUGIN_TARGET:-node12-macos-x64,node12-linux}" "${PLUGIN_SCRIPT}"
+  cd "${PLUGIN_SOURCE}"
+
+  if [[ ! -w "${PLUGIN_OUTPUT_DIR}" ]]; then
+    PLUGIN_OUTPUT_DIR="/tmp"
+  fi
+
+  pkg --out-path "${PLUGIN_OUTPUT_DIR}" -t "${PLUGIN_TARGET}" "${PLUGIN_SCRIPT}"
 
   return 0
 }
