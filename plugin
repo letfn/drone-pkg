@@ -3,6 +3,8 @@
 function main {
   set -exfu
 
+  ls -ltrhd /drone/src /drone/src/.defn || true
+
   : ${PLUGIN_SOURCE:=.}
   : ${PLUGIN_OUTPUT_DIR:=.}
   : ${PLUGIN_TARGET:=node12-macos-x64,node12-linux}
